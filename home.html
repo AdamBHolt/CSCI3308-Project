@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title>Web Interface</title>
+	</head>
+
+	<body>
+		<body bgcolor="cornflowerBlue"
+		<h1>CSCI 3308 Project <br/> Adam Holt, Peter Goudy, and Marc Simpson</h1>
+		<br/><img hight="60" width="60" src="Raspi_Colour_R.png"/> 
+  		<p>We have a media file organizer and online server using a Raspberry Pi. Media files (images, sound files, or videos) 
+can be placed in file storage and are organized into a searchable database.<br/>The server can be accessed locally
+ or remotely through a browser-based GUI interface which can search through the files and play them in the browser.</p>
+		<hr />
+		<p>Second paragraph/where we start the links for everything.</p>
+
+<body>
+
+<embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"
+version="VideoLAN.VLCPlugin.2"
+width="640"
+height="480"
+id="vlc"
+</embed>
+
+<script>
+var vlc = document.getElementById("vlc");
+vlc.playlist.add("sftp://stream:streaming@piserver.selfip.com:22/media/media", "live",
+":network-caching=150");
+vlc.playlist.play();
+</script>
+
+</body>
+		
+	</body>
+</html>

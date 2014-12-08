@@ -1,6 +1,7 @@
 <html>
 	<head>
-		<title>Web Interface</title>
+		<title>Media Player</title>
+		<link rel="shortcut icon" href="favicon.png">
 	</head>
 
 	<body>
@@ -11,15 +12,15 @@
 can be placed in file storage and are organized into a searchable database.<br/>The server can be accessed locally
  or remotely through a browser-based GUI interface which can search through the files and play them in the browser.</p>
 		<hr />
-		<p>Second paragraph/where we start the links for everything.</p>
 
-<body>
+
 
 <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"
 version="VideoLAN.VLCPlugin.2"
 width="640"
 height="480"
 id="vlc"
+target="http://piserver.selfip.com:8000/Video/Brazil.m4v"
 </embed>
 
 <script>
@@ -31,5 +32,4 @@ vlc.playlist.play();
 
 </body>
 		
-	</body>
 </html>

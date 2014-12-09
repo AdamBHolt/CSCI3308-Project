@@ -12,24 +12,21 @@
 can be placed in file storage and are organized into a searchable database.<br/>The server can be accessed locally
  or remotely through a browser-based GUI interface which can search through the files and play them in the browser.</p>
 		<hr />
-
-
-
-<embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org"
-version="VideoLAN.VLCPlugin.2"
-width="640"
-height="480"
-id="vlc"
-target="http://piserver.selfip.com:8000/Video/Brazil.m4v"
-</embed>
-
-<script>
-var vlc = document.getElementById("vlc");
-vlc.playlist.add("sftp://stream:streaming@piserver.selfip.com:22/media/media", "live",
-":network-caching=150");
-vlc.playlist.play();
+<script = "text/javascript">
+var $val = $('#file').val()
+$("#url").attr("href", "http://" + $val);
 </script>
 
+<object type="application/x-vlc-plugin" data="http://piserver.selfip.com:9000/Photo/IMG_0162.JPG" width="640" height="480" id="media">
+     <param name="movie" value="http://piserver.selfip.com:9000/Photo/IMG_0162.JPG"/>
+     <embed type="application/x-vlc-plugin" name="video1"
+     autoplay="no" loop="no" width="640" height="480"
+     target="http://piserver.selfip.com:9000/Photo/IMG_0162.JPG" />
+    
+</object>
+
+<a id="url" href="http://">Download Media</a> 
+          <input id="file" type="text"/>
 </body>
-		
+
 </html>

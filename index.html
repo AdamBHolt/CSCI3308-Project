@@ -1,51 +1,27 @@
 <!doctype html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--> 	<html lang="en"> <!--<![endif]-->
 <head>
 
-	<!-- General Metas -->
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	<!-- Force Latest IE rendering engine -->
 	<title>Raspberry Pi Login</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	
-	<!-- Mobile Specific Metas -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-	
-	<!-- Stylesheets -->
+	<link rel="shortcut icon" href="favicon.png">
 	<link rel="stylesheet" href="css/base.css">
 	<link rel="stylesheet" href="css/skeleton.css">
 	<link rel="stylesheet" href="css/layout.css">
 	
 </head>
+<img style="position:absolute; left:25px; top:25px;" src="Raspi_Colour_R.png"/> 
+
 <body>
-
-	<!-- Primary Page Layout -->
-
 	<div class="container">
-		
 		<div class="form-bg">
 			<form name="login">
 				<h2>Login</h2>
 				<p><input id="user" type="text" placeholder="Username"></p>
 				<p><input id ="pass" type="password" placeholder="Password"></p>
-				<button type="button" onclick="checkPassword();"></button>
+				<button type="button" onclick="checkPassword();">Login</button>
 			<form>
 		</div>
+	</div>
 
-	
-		<p class="forgot">Forgot your password? <a href="http://piserver.selfip.com:8000/home/forgot.html">Click here to reset it.</a></p>
-
-
-	</div><!-- container -->
-
-	<!-- JS  -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
 	<script>window.jQuery || document.write("<script src='js/jquery-1.5.1.min.js'>\x3C/script>")</script>
 	<script src="js/app.js"></script>
@@ -57,17 +33,18 @@
 
 			var password = document.getElementById('pass').value;
 			var userName = document.getElementById('user').value;
-			if (userName == correctUser) {
-			if (password == correctPass) {
-			window.location.href = "http://piserver.selfip.com:8000/home/home.html";
+			if (userName == correctUser)
+			{
+				if (password == correctPass)
+				{
+					window.location.href = "http://piserver.selfip.com:8000/home/home.html";
+				}
 			}
-			}
-			else {
+			else 
+			{
 				alert("Incorrect username or password.");
 			}
 		}
 	</script>
-
-
 </body>
 </html>

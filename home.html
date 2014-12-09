@@ -1,32 +1,79 @@
-<html>
-	<head>
-		<title>Media Player</title>
-		<link rel="shortcut icon" href="favicon.png">
-	</head>
+<!doctype html>
+<head>
+	<title>Media Player</title>
+	<link rel="shortcut icon" href="favicon.png">
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/skeleton.css">
+	
+</head>
 
-	<body>
-		<body bgcolor="cornflowerBlue"
-		<h1>CSCI 3308 Project <br/> Adam Holt, Peter Goudy, and Marc Simpson</h1>
-		<br/><img hight="60" width="60" src="Raspi_Colour_R.png"/> 
-  		<p>We have a media file organizer and online server using a Raspberry Pi. Media files (images, sound files, or videos) 
-can be placed in file storage and are organized into a searchable database.<br/>The server can be accessed locally
- or remotely through a browser-based GUI interface which can search through the files and play them in the browser.</p>
-		<hr />
-<script = "text/javascript">
-var $val = $('#file').val()
-$("#url").attr("href", "http://" + $val);
-</script>
+<body>
+	<h1>
+		<img style="position:absolute; left:25px; top:25px;" src="Raspi_Colour_R.png"/>
+		</br>
+		<div style="text-indent: 3em;">CSCI 3308 Project</div>
+		<div style="text-indent: 3em;">Adam Holt, Peter Goudy, and Marc Simpson</div>
+	</h1>
+	<hr/>
 
-<object type="application/x-vlc-plugin" data="http://piserver.selfip.com:9000/Photo/IMG_0162.JPG" width="640" height="480" id="media">
-     <param name="movie" value="http://piserver.selfip.com:9000/Photo/IMG_0162.JPG"/>
-     <embed type="application/x-vlc-plugin" name="video1"
-     autoplay="no" loop="no" width="640" height="480"
-     target="http://piserver.selfip.com:9000/Photo/IMG_0162.JPG" />
-    
-</object>
+	<script = "text/javascript">
+		var path = 'http://piserver.selfip.com:9000/';
+		function downloadMedia() {
+			alert('download: ' + path);
+			window.open(path, '_self');
+		}
 
-<a id="url" href="http://">Download Media</a> 
-          <input id="file" type="text"/>
+		function setFile(fileLoc) {
+			alert('File: ' + fileLoc);
+			path = 'http://10.0.0.14:9000/' + fileLoc;
+			window.location.reload();
+		}
+	</script>
+<table>
+<col style="width:800px">
+<td>
+	<table>
+  		<tr>
+    			<td>
+				<object type="application/x-vlc-plugin" data= <script>document.write(path)</script> width="640" height="480" id="media">
+					<param name="movie" value= <script>document.write(path)</script>
+     					<embed type="application/x-vlc-plugin" name="video1"
+     					autoplay="no" loop="no" width="640" height="480"
+     					target= <script>document.write(path)</script>
+
+				</object>
+			</td>
+  		</tr>
+  		<tr>
+    			<td align="center">
+				<button style="color:white" type="button" onclick="downloadMedia();">Download Media</button>
+			</td>
+  		</tr>
+	</table>
+</td>
+<td style="vertical-align:top">
+	<table>
+		<col style="width:250px">
+		<col style="width:250px">
+		<col style="width:250px">
+		<tr>
+			<th><label style="color:white; font-size:20px">Video</label></th>
+			<th><label style="color:white; font-size:20px">Audio</label></th>
+			<th><label style="color:white; font-size:20px">Photo</label></th>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Brazil.m4v');">Brazil</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio 1');">Audio 1</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo 1');">Photo 1</button></td>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video 2');">Video 2</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio 2');">Audio 2</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo 2');">Photo 2</button></td>
+		</tr>
+	</table>
+</td>
+</table>
+
 </body>
-
 </html>

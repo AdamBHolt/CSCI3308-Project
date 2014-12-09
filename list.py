@@ -10,7 +10,7 @@ video = []
 inaction = []
 locations = {}
 
-db = MySQLdb.connect(host="", user = "", passwd = "", db = "") #fill in w/ proper values
+db = MySQLdb.connect(host="", user = "", passwd = "", db = "")
 cur = db.cursor()
 
 def mediaSort(directory): #sorts files in given directory into 4 distinct lists. Gives full location if fdirect is 1
@@ -24,7 +24,7 @@ def mediaSort(directory): #sorts files in given directory into 4 distinct lists.
             picture.append(x)
             locations[x] = longx;
             continue
-        if extension in ['.mov', '.ogv', '.wmv']:
+        if extension in ['.mov', '.ogv', '.wmv', '.m4v']:
             video.append(x)
             locations[x] = longx;
             continue
@@ -70,7 +70,9 @@ def main ():
     if parityCheck(video, "videos") == 0:
         cur.execute("TRUNCATE videos")
         fillTable(video, "videos")
+    db.commit()
     db.close()
+main()
         
     
         

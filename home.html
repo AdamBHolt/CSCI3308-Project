@@ -11,7 +11,7 @@
 	<h1>
 		<img style="position:absolute; left:25px; top:25px;" src="Raspi_Colour_R.png"/>
 		</br>
-		<div style="text-indent: 3em;">CSCI 3308 Project</div>
+		<div style="text-indent: 3em;">Raspberry Pi Media Server</div>
 		<div style="text-indent: 3em;">Adam Holt, Peter Goudy, and Marc Simpson</div>
 	</h1>
 	<hr/>
@@ -19,14 +19,12 @@
 	<script = "text/javascript">
 		var path = 'http://piserver.selfip.com:9000/';
 		function downloadMedia() {
-			alert('download: ' + path);
 			window.open(path, '_self');
 		}
 
 		function setFile(fileLoc) {
-			alert('File: ' + fileLoc);
-			path = 'http://10.0.0.14:9000/' + fileLoc;
-			window.location.reload();
+			path = 'http://piserver.selfip.com:9000/' + fileLoc;
+			document.getElementById('filePath').setAttribute('data', path);
 		}
 	</script>
 <table>
@@ -35,18 +33,18 @@
 	<table>
   		<tr>
     			<td>
-				<object type="application/x-vlc-plugin" data= <script>document.write(path)</script> width="640" height="480" id="media">
-					<param name="movie" value= <script>document.write(path)</script>
+				<object id="filePath" type="application/x-vlc-plugin" width="640" height="480" id="media">
+					<param name="movie" value=path
      					<embed type="application/x-vlc-plugin" name="video1"
      					autoplay="no" loop="no" width="640" height="480"
-     					target= <script>document.write(path)</script>
+     					target=path
 
 				</object>
 			</td>
   		</tr>
   		<tr>
     			<td align="center">
-				<button style="color:white" type="button" onclick="downloadMedia();">Download Media</button>
+				<button id="filePath" style="color:white" type="button" onclick="downloadMedia();">Download Media</button>
 			</td>
   		</tr>
 	</table>
@@ -62,15 +60,66 @@
 			<th><label style="color:white; font-size:20px">Photo</label></th>
 		</tr>
 		<tr>
-			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Brazil.m4v');">Brazil</button></td>
-			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio 1');">Audio 1</button></td>
-			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo 1');">Photo 1</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Aliens.m4v');">Aliens</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/Attention.mp3');">Attention</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/IMG_0162.jpg');">Photo 1</button></td>
 		</tr>
 		<tr>
-			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video 2');">Video 2</button></td>
-			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio 2');">Audio 2</button></td>
-			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo 2');">Photo 2</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Back to the Future 1.m4v');">Back to the Future</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/Blue Blood Blues.mp3');">Blue Blood Blues</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/IMG_0179.jpg');">Photo 2</button></td>
 		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Big Lebowski, The.m4v');">Big Lebowski, The</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/Feel Good Inc..m4a');">Feel Good Inc.</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/IMG_0200.JPG');">Photo 3</button></td>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Brazil.m4v');">Brazil</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/Float On.m4a');">Float On</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/LA Street Art 003.jpg');">Photo 4</button></td>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Cabin in the Woods.m4v');">Cabin in the Woods</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/Here It Goes Again.mp3');">Here it Goes Again</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/IMG_9324.JPG');">Photo 5</button></td>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Die Hard 1.m4v');">Die Hard</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/Ho Hey.mp3');">Ho Hey</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/IMG_4128.JPG');">Photo 6</button></td>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Fifth Element, The.m4v');">Fifth Element, The</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/John The Fisherman.mp3');">John the Fisherman</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/IMG_0228.JPG');">Photo 7</button></td>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Goodfellas.m4v');">Goodfellas</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/Last Nite.m4a');">Last Nite</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/Maui - Hana etc. 124.jpg');">Photo 8</button></td>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Ninja Scroll.m4v');">Ninja Scroll</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/No Way Down.mp3');">No Way Down</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/Xmas 08 052.jpg');">Photo 9</button></td>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Princess Bride, The.m4v');">Princess Bride, The</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/Sober.mp3');">Sober</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/fs__~0x0102382c_0728081039.jpg');">Photo 10</button></td>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Star Wars 4 - A New Hope.m4v');">Star Wars: A New Hope.</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/Spinning In Daffodils.mp3');">Spinning in Daffodils</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/IMG_3526.JPG');">Photo 11</button></td>
+		</tr>
+		<tr>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Video/Wreck it Ralph.m4v');">Wreck it Ralph</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Audio/The Hounds.mp3');">The Hounds</button></td>
+			<td><button style="color:white; width:200px" type="button" onclick="setFile('Photo/IMG_0258.JPG');">Photo 12</button></td>
+		</tr>
+
 	</table>
 </td>
 </table>

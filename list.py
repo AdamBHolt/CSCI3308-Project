@@ -1,53 +1,79 @@
 #!/usr/bin/env python
-# Overall, pretty rough. What it does is lists files in three distinct categories (music, pics, video) and writes the names of said files into three files to use later. Can be modified, but is a good starting point.
 
 import os
 import os.path
+import MySQLdb
 
 music = []
 picture = []
 video = []
 inaction = []
+locations = {}
 
-def mediaSort(directory, fdirect): #sorts files in given directory into 4 distinct lists. Gives full location if fdirect is 1
-    print "Working in:" + directory
+db = MySQLdb.connect(host="", user = "", passwd = "", db = "")
+cur = db.cursor()
+
+def mediaSort(directory): #sorts files in given directory into 4 distinct lists. Gives full location if fdirect is 1
     for x in os.listdir(directory):
         longx = directory+"/"+x
-        if fdirect == True:
-            x = longx
         extension = os.path.splitext(x)[1] #scrapes the extension for file x
-        if os.path.isfile(longx) == 0: #if a folder is found, run mediaSort on said folder
-            mediaSort(longx, fdirect)
+        if os.path.isfile(longx) == 0 and x != ".git" and x != "home": #if a folder is found, run mediaSort on said folder
+            mediaSort(longx)
             continue
-        if extension in ['.jpg', '.png', '.gif']: #list so can easily be added to
+        if extension in ['.jpg', '.png', '.gif']:
             picture.append(x)
+            locations[x] = longx;
             continue
-        if extension in ['.mov', '.ogv', '.wmv']:
+        if extension in ['.mov', '.ogv', '.wmv', '.m4v']:
             video.append(x)
+            locations[x] = longx;
             continue
         if extension in ['.mp3', '.wav', '.ogg']:
             music.append(x)
+            locations[x] = longx;
             continue
         if extension in ['.txt', '.py']: #easy way to disregard certain extensions
             continue
         else:
             inaction.append(x) #in case we want to list files we do nothing with
-        
-def createFile(inlist, listname): #creates a .txt file from a list, given said list and filename
-    outfile = open(listname, 'w')
-    inlist.sort() #might be unneeded
-    for x in inlist:
-        outfile.write(x + "\n")
-    print "%s files in " %len(inlist) + listname
 
-def test (): #personal test code. Runs mediasort in directory of list.py, and creates text files. Will be removed eventually.
-    mediaSort(os.getcwd(), 0)
-    createFile(picture, "pictures.txt")
-    createFile(video, "videos.txt")
-    createFile(music, "music.txt")
-    if len(inaction) != 0: #will probably move to a function later
-        print "No action taken on:"
-        for x in inaction:
-            print x
     
-test()
+def fillTable(medialist, listname):
+    for media in medialist:
+        cur.execute("INSERT INTO %s (name, location) VALUES (%%s, %%s)" % listname, (media, locations[media]))
+
+def parityCheck(medialist, listname): #returns 1 if values in a list are the same as db
+    cur.execute("SELECT Name from %s" %listname)
+    parity = []
+    for row in cur:
+        parity.append(row[0])
+    for media in medialist:
+        if media in parity:
+            continue
+        else:
+            return 0
+    for media in parity:
+        if media in medialist:
+            continue
+        else:
+            return 0
+    return 1
+
+def main ():
+    mediaSort(os.getcwd())
+    if parityCheck(picture, "pictures") == 0:
+        cur.execute("TRUNCATE pictures")
+        fillTable(picture, "pictures")
+    if parityCheck(music, "music") == 0:
+        cur.execute("TRUNCATE music")
+        fillTable(music, "music")
+    if parityCheck(video, "videos") == 0:
+        cur.execute("TRUNCATE videos")
+        fillTable(video, "videos")
+    db.commit()
+    db.close()
+main()
+        
+    
+        
+    

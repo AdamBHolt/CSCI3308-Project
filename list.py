@@ -1,9 +1,17 @@
 #!/usr/bin/env python
 
+## @mainpage Raspberry Pi Media Server Media Scraper
+# @author Peter Goudy, Adam Holt, Marc Simpson
+# @date December 09, 2014
+# @details This program, when run, will find all media files (by their extension), and sort them into a database along with their location.
+# @warning In the sense of security, the database information has been omitted. Enter your own values before running this program. 
+
+
 import os
 import os.path
 import MySQLdb
-
+import argparse
+##@cond
 music = []
 picture = []
 video = []
@@ -12,11 +20,15 @@ locations = {}
 
 db = MySQLdb.connect(host="", user = "", passwd = "", db = "")
 cur = db.cursor()
+##@endcond
 
-def mediaSort(directory): #sorts files in given directory into 4 distinct lists. Gives full location if fdirect is 1
+## This method sorts all media in a given directory (as well as all directories below it) into 4 distinct pre-made lists. 
+# Additional extensions can be added to the search by adding them to the respective lists.
+# @param directory This is the directory to sort in.
+def mediaSort(directory):
     for x in os.listdir(directory):
         longx = directory+"/"+x
-        extension = os.path.splitext(x)[1] #scrapes the extension for file x
+        extension = os.path.splitext(x)[1]
         if os.path.isfile(longx) == 0 and x != ".git" and x != "home": #if a folder is found, run mediaSort on said folder
             mediaSort(longx)
             continue
@@ -32,17 +44,23 @@ def mediaSort(directory): #sorts files in given directory into 4 distinct lists.
             music.append(x)
             locations[x] = longx;
             continue
-        if extension in ['.txt', '.py']: #easy way to disregard certain extensions
+        if extension in ['.txt', '.py']: 
             continue
         else:
-            inaction.append(x) #in case we want to list files we do nothing with
+            inaction.append(x)
 
-    
+## This method populates a premade MySQL table with the name and location of a filetype.
+# @param medialist This is a list of filenames of a given media type
+# @param listname This is the name of both the media list, and MySQL table
 def fillTable(medialist, listname):
     for media in medialist:
         cur.execute("INSERT INTO %s (name, location) VALUES (%%s, %%s)" % listname, (media, locations[media]))
 
-def parityCheck(medialist, listname): #returns 1 if values in a list are the same as db
+## This method will check a list against a MySQL table to see if they contain the same items.
+# @param medialist This is a list of filenames of a given media type
+# @param listname This is the name of both the media list, and MySQL table
+# @return Returns 1 if they contain the same items, else 0.
+def parityCheck(medialist, listname):
     cur.execute("SELECT Name from %s" %listname)
     parity = []
     for row in cur:
@@ -59,8 +77,16 @@ def parityCheck(medialist, listname): #returns 1 if values in a list are the sam
             return 0
     return 1
 
+## @brief This method will parse the arguements, then call mediaSort to populate the media lists. From there, it will call parityCheck, and should any of those return 0, run fillTable on them.
+# @brief The connection to MySQL will then be terminated.
 def main ():
-    mediaSort(os.getcwd())
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--directory", help="Sort in a given directory. If blank, will run in current directory.", nargs='?')
+    args = parser.parse_args()
+    if args.directory:
+        mediaSort(args.directory)
+    else:
+        mediaSort(os.getcwd())
     if parityCheck(picture, "pictures") == 0:
         cur.execute("TRUNCATE pictures")
         fillTable(picture, "pictures")

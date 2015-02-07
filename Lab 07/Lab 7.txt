@@ -1,0 +1,30 @@
+1.
+ar -cr libFunnyFacts1.a object1.o subject1.o verb.o
+ar -cr libFunnyFacts1.a object2.o subject2.o verb.o
+
+2.
+ar -t libFunnyFacts1.a
+ar -t libFunnyFacts2.a
+
+3.
+object1.o
+subject1.o
+verb.o
+
+4.
+-Iinclude
+-Llib
+-lFunnyFacts1
+-lFunnyFacts2
+
+5.
+The national bird is the cornflower.
+
+6.
+The state flower is the bald eagle.
+
+7.
+Because the object and subject code in each library is different. In each compilation, the code form the first included library determined the output of the compiled program.
+
+8.
+gcc facts.c lib/libFunnyFacts1.a lib/libFunnyFacts2.a -o facts -Iinclude

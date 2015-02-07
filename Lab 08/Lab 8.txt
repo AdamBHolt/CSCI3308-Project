@@ -1,0 +1,39 @@
+1.
+egrep [0-9]{3}-[0-9]{3}-[0-9]{4} -c regex.txt
+770
+
+2.
+egrep 303-441-[0-9]{4} -c regex.txt
+51
+
+3.
+egrep '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}' -c regex.txt
+17705
+
+4.
+egrep '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.gov' -c regex.txt
+52
+
+5.
+egrep '^[a-mA-M][a-zA-Z]*\.[a-zA-Z]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}' -c regex.txt
+334
+ 
+6.
+egrep '\b[a-zA-Z]{12}\b' -c regex.txt
+1421
+
+7.
+egrep ^[a-zA-Z]{12}$ -c regex.txt
+1257
+
+8.
+egrep '\b[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ][a-zA-Z]{11}\b' -c regex.txt
+1244
+
+9.
+egrep '\b[a-zA-Z].*[0-9]\b' -c regex.txt
+14409
+ 
+10.
+egrep '(.{2})\1' -c regex.txt
+1287  
